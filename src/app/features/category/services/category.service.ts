@@ -13,11 +13,6 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  addCategory(model: AddCategoryRequest): Observable<void>
-  {
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/Categories`,model);
-  }
-
   getAllCategories() :Observable<Category[]>
   {
     return this.http.get<Category[]>(`${environment.apiBaseUrl}/api/Categories`);
@@ -28,13 +23,18 @@ export class CategoryService {
     return this.http.get<Category>(`${environment.apiBaseUrl}/api/Categories/${id}`);
   }
 
+  addCategory(model: AddCategoryRequest): Observable<void>
+  {
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/Categories?addAuth=true`,model);
+  }
+  
   updateCategory(id:string, updateCategoryRequest: UpdateCategoryRequest):Observable<Category>{
 
-    return this.http.put<Category>(`${environment.apiBaseUrl}/api/Categories/${id}`, updateCategoryRequest);
+    return this.http.put<Category>(`${environment.apiBaseUrl}/api/Categories/${id}?addAuth=true`, updateCategoryRequest);
   }
 
   deleteCategory(id:string) :Observable<Category>
   {
-    return this.http.delete<Category>(`${environment.apiBaseUrl}/api/Categories/${id}`);
+    return this.http.delete<Category>(`${environment.apiBaseUrl}/api/Categories/${id}?addAuth=true`);
   }
 }
